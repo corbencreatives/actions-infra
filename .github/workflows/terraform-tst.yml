@@ -3,9 +3,7 @@ name: 'Terraform TST'
 on:
   pull_request:
     types: [closed]
-    branches:
-      - develop
-      - main
+    branches: [develop, main]
     paths:
       - 'terraform/**'
       - '.github/workflows/**'

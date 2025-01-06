@@ -3,9 +3,6 @@ name: 'Security'
 on:
   pull_request:
     types: [opened, reopened]
-    paths:
-      - 'terraform/**'
-      - '.github/workflows/**'
 
 jobs:
   call-terraform-security:

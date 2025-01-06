@@ -4,7 +4,6 @@ on:
   pull_request:
     types: [opened, reopened]
   merge_group:
-    branches: [develop, main]
 
 jobs:
   call-terraform-security:

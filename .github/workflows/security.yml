@@ -2,10 +2,11 @@ name: 'Security'
 
 on:
   pull_request:
-    types: [closed]
+    types: [opened, reopened]
     paths:
       - 'terraform/**'
       - '.github/workflows/**'
+
 
 env:
   CONFIG_DIRECTORY: "./terraform"

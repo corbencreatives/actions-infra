@@ -19,7 +19,7 @@ env:
 
 jobs:
   terraform-plan:
-    name: "Terraform Plan"
+    name: "Terraform Plan2"
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
     permissions:

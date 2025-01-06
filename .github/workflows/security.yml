@@ -8,7 +8,7 @@ on:
       - '.github/workflows/**'
 
 env:
-  CONFIG_DIRECTORY: terraform
+  CONFIG_DIRECTORY: "./terraform"
 
 jobs:
   call-terraform-security:

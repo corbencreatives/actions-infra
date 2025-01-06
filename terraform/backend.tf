@@ -15,6 +15,13 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = "cicdcluster"
+#   enable_host_encryption  = true
+#   network_profile {
+#     network_policy = "calico"
+#     network_plugin = "none"
+#   }
+#   automatic_upgrade_channel = "stable"
+#   private_cluster_enabled = true
 
   default_node_pool {
     name       = "default"

@@ -3,9 +3,9 @@ name: 'Terraform TST'
 on:
   pull_request:
     types: [closed]
-#    paths:
-#      - 'terraform/**'
-#      - '.github/workflows/**'
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/**'
 
 env:
   TF_CLOUD_ORGANIZATION: "corbencreatives"

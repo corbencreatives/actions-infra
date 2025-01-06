@@ -13,3 +13,5 @@ jobs:
     uses: corbencreatives/action-workflows/.github/workflows/terraform-security.yml@v0.5.0
     with:
       terraform-path: "./terraform"
+    permissions:
+      security-events: write

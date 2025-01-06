@@ -14,4 +14,5 @@ jobs:
     with:
       terraform-path: "./terraform"
     permissions:
+      contents: read
       security-events: write

@@ -5,7 +5,7 @@ on:
 
 env:
   TF_CLOUD_ORGANIZATION: "corbencreatives"
-  TF_WORKSPACE: "actions-test"
+  TF_WORKSPACE: "actions-infra"
   CONFIG_DIRECTORY: "./terraform"
   TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
   TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}

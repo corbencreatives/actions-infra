@@ -14,7 +14,3 @@
 # files with -old in it
 *-old*
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
-#chart/
-#k8s/

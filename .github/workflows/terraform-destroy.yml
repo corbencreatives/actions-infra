@@ -1,0 +1,28 @@
+name: 'Terraform Destroy'
+
+on:
+  workflow_dispatch:
+
+env:
+  TF_CLOUD_ORGANIZATION: "corbencreatives"
+  TF_WORKSPACE: "actions-test"
+  CONFIG_DIRECTORY: "./terraform"
+  TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
+  TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  TF_VAR_ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  TF_VAR_ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+
+jobs:
+  destroy-workspace:
+    runs-on: ubuntu-latest
+    name: Destroy Terraform workspace
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: terraform destroy
+        uses: dflook/terraform-destroy@v1.45.0
+        with:
+          path: ${{ env.CONFIG_DIRECTORY }}
+          workspace: ${{ env.TF_WORKSPACE }}
+

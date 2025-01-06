@@ -12,6 +12,7 @@ env:
 
 jobs:
   call-terraform-security:
+    if: ${{ github.event_name == 'pull_request' }} # only run job if workflow initiated by a pull request event
     uses: corbencreatives/action-workflows/.github/workflows/terraform-security.yml@v0.5.0
     with:
       terraform-path: ${{ env.CONFIG_DIRECTORY }}

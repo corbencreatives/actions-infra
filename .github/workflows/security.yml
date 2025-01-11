@@ -3,13 +3,9 @@ name: 'Security'
 on:
   pull_request:
     types: [opened, reopened]
-    branches:
-      - develop
-      - main
+    branches: [develop, main]
   merge_group:
-    branches:
-      - develop
-      - main
+    branches: [develop, main]
 
 jobs:
   call-terraform-security:

@@ -1,15 +1,15 @@
 name: 'Security'
 
 on:
-  pull_request:
-    types: [opened, reopened]
-    branches: [develop, main]
+#  pull_request:
+#    types: [opened, reopened]
+#    branches: [develop, main]
   merge_group:
     branches: [develop, main]
 
 jobs:
   call-terraform-security:
-    if: github.event_name == 'pull_request' # only run job if workflow initiated by a pull request event
+#    if: github.event_name == 'pull_request' # only run job if workflow initiated by a pull request event
     uses: corbencreatives/action-workflows/.github/workflows/terraform-security.yml@v0.5.2
     with:
       terraform-path: "./terraform"

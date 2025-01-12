@@ -1,0 +1,18 @@
+name: 'K8S Internals'
+
+on:
+  workflow_run:
+    workflows: ['Terraform TST', 'Terraform ACC', 'Terraform PRD']
+    types: [completed]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4.0.0
+
+      - name: Create pull secret
+        run: |
+          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ DOCKER_PASSWORD }} --docker-server=https://ghcr.io --context cicdcluster -n cicd          

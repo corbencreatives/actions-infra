@@ -13,19 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Azure login
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.ARM_CLIENT_ID }}
-          tenant-id: ${{ secrets.ARM_TENANT_ID }}
-          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+#      - name: Azure login
+#        uses: azure/login@v2
+#        with:
+#          client-id: ${{ secrets.ARM_CLIENT_ID }}
+#          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+#          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
       - name: Fetch AKS kubeconfig
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
+        run: echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
 
       - name: Add kubeconfig to repo secrets
         uses: action-pack/set-secret@v1

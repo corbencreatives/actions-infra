@@ -52,4 +52,4 @@ jobs:
 
       - name: Create pull secret
         run: |
-          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io --context cicdcluster -n cicd          
+          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io -n cicd          

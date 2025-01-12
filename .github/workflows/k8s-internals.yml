@@ -35,8 +35,6 @@ jobs:
             } >> "$GITHUB_ENV"
             cat 
 
-#            echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
-
 #      - name: Fetch AKS kubeconfig
 #        run: echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
 
@@ -58,6 +56,10 @@ jobs:
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v4.0.0
+
+      - name: Create namespace
+        run: |
+          kubectl create namespace cicd
 
       - name: Create pull secret
         run: |

@@ -27,8 +27,15 @@ jobs:
         uses: azure/cli@v2
         with:
           azcliversion: latest
-          inlineScript: echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
+          inlineScript: |
+            {
+            echo 'KUBE_CONFIG<<EOF'
+            az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -
+            echo EOF
+            } >> "$GITHUB_ENV" 
+            
 
+#            echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
 
 #      - name: Fetch AKS kubeconfig
 #        run: echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV

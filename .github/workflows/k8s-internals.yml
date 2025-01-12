@@ -59,7 +59,7 @@ jobs:
 
       - name: Create namespace
         run: |
-          kubectl create namespace cicd
+          kubectl create namespace cicd --kubeconfig src/config
 
       - name: Create pull secret
         run: |

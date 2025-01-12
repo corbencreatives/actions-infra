@@ -32,8 +32,8 @@ jobs:
             echo 'KUBE_CONFIG<<EOF'
             az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -
             echo EOF
-            } >> "$GITHUB_ENV" 
-            
+            } >> "$GITHUB_ENV"
+            cat 
 
 #            echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
 
@@ -47,9 +47,17 @@ jobs:
           value: ${{ env.KUBE_CONFIG }}
           token: ${{ secrets.REGISTRY_TOKEN }}
 
+      - name: Write kube config to file
+        uses: 1arp/create-a-file-action@0.4.5
+        with:
+          path: '~/.kube'
+          isAbsolutePath: true
+          file: 'config'
+          content: ${{ env.KUBE_CONFIG }}
+
       - name: Install kubectl
         uses: azure/setup-kubectl@v4.0.0
 
       - name: Create pull secret
         run: |
-          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io -n cicd          
+          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io --context cicdcluster -n cicd          

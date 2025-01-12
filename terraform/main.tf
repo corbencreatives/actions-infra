@@ -16,7 +16,6 @@ terraform {
 # Configure the GitHub Provider
 provider "github" {}
 
-
 # provider "kubernetes" {
 #   config_path = var.kube_config
 #
@@ -24,7 +23,7 @@ provider "github" {}
 #     manifest_resource = true
 #   }
 # }
-#
+
 # provider "helm" {
 #   kubernetes {
 #     config_path = var.kube_config

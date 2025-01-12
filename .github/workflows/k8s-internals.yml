@@ -43,18 +43,18 @@ jobs:
       - name: Add kubeconfig to repo secrets
         uses: action-pack/set-secret@v1
         with:
-          name: 'JOEP_CONFIG'
+          name: 'KUBE_CONFIG'
           value: ${{ env.KUBE_CONFIG }}
           token: ${{ secrets.REGISTRY_TOKEN }}
 
-
-#      - name: Write kube config to file
-#        uses: 1arp/create-a-file-action@0.4.5
-#        with:
-#          path: '~/.kube'
-#          isAbsolutePath: true
-#          file: 'config'
-#          content: ${{ env.KUBE_CONFIG }}
+      - uses: actions/checkout@v4
+      - name: Write kube config to file
+        uses: 1arp/create-a-file-action@0.4.5
+        with:
+          path: 'src'
+          isAbsolutePath: true
+          file: 'config'
+          content: ${{ env.KUBE_CONFIG }}
 
       - name: Install kubectl
         uses: azure/setup-kubectl@v4.0.0

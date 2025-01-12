@@ -43,18 +43,10 @@ jobs:
       - name: Add kubeconfig to repo secrets
         uses: action-pack/set-secret@v1
         with:
-          name: 'KUBE_CONFIG'
+          name: 'JOEP_CONFIG'
           value: ${{ env.KUBE_CONFIG }}
           token: ${{ secrets.REGISTRY_TOKEN }}
 
-
-      - run: echo ${{ env.KUBE_CONFIG }} > kube-config.yml
-
-      - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: kube-config
-          path: kube-config.yml
 
 #      - name: Write kube config to file
 #        uses: 1arp/create-a-file-action@0.4.5

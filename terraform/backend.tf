@@ -32,3 +32,8 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
   }
 }
 
+resource "kubernetes_namespace" "cicd-namespace" {
+  metadata {
+    name = "cicd"
+  }
+}

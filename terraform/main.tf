@@ -24,6 +24,7 @@ provider "github" {}
 
 provider "kubernetes" {
   config_path = var.kube_config
+  config_context = "cicdcluster"
 }
 
 # provider "helm" {

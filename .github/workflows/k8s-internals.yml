@@ -35,32 +35,34 @@ jobs:
             } >> "$GITHUB_ENV"
             cat 
 
-#      - name: Fetch AKS kubeconfig
-#        run: echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
+# -------------------------------------------------------------
 
-      - name: Add kubeconfig to repo secrets
-        uses: action-pack/set-secret@v1
-        with:
-          name: 'KUBE_CONFIG'
-          value: ${{ env.KUBE_CONFIG }}
-          token: ${{ secrets.REGISTRY_TOKEN }}
-
-      - uses: actions/checkout@v4
-      - name: Write kube config to file
-        uses: 1arp/create-a-file-action@0.4.5
-        with:
-          path: 'src'
-          isAbsolutePath: true
-          file: 'config'
-          content: ${{ env.KUBE_CONFIG }}
-
-      - name: Install kubectl
-        uses: azure/setup-kubectl@v4.0.0
-
-      - name: Create namespace
-        run: |
-          kubectl create namespace cicd --kubeconfig src/config
-
-      - name: Create pull secret
-        run: |
-          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io --kubeconfig src/config --context cicdcluster -n cicd          
+##      - name: Fetch AKS kubeconfig
+##        run: echo "KUBE_CONFIG=`az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster --file -`" >> $GITHUB_ENV
+#
+#      - name: Add kubeconfig to repo secrets
+#        uses: action-pack/set-secret@v1
+#        with:
+#          name: 'KUBE_CONFIG'
+#          value: ${{ env.KUBE_CONFIG }}
+#          token: ${{ secrets.REGISTRY_TOKEN }}
+#
+#      - uses: actions/checkout@v4
+#      - name: Write kube config to file
+#        uses: 1arp/create-a-file-action@0.4.5
+#        with:
+#          path: 'src'
+#          isAbsolutePath: true
+#          file: 'config'
+#          content: ${{ env.KUBE_CONFIG }}
+#
+#      - name: Install kubectl
+#        uses: azure/setup-kubectl@v4.0.0
+#
+#      - name: Create namespace
+#        run: |
+#          kubectl create namespace cicd --kubeconfig src/config
+#
+#      - name: Create pull secret
+#        run: |
+#          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io --kubeconfig src/config --context cicdcluster -n cicd

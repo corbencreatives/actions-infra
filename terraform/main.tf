@@ -22,9 +22,23 @@ terraform {
 # Configure the GitHub Provider
 provider "github" {}
 
+# provider "kubernetes" {
+#   config_path = "~/.kube/config"
+#   config_context = "cicdcluster"
+# }
+
+data "azurerm_kubernetes_cluster" "credentials" {
+  name                = azurerm_kubernetes_cluster.cl-cicd.name
+  resource_group_name = azurerm_resource_group.rg.name
+}
+
 provider "kubernetes" {
-  config_path = "~/.kube/config"
-  config_context = "cicdcluster"
+  host                   = data.azurerm_kubernetes_cluster.credentials.kube_config[0].host
+  username               = data.azurerm_kubernetes_cluster.credentials.kube_config[0].username
+  password               = data.azurerm_kubernetes_cluster.credentials.kube_config[0].password
+  client_certificate     = base64decode(data.azurerm_kubernetes_cluster.credentials.kube_config[0].client_certificate, )
+  client_key             = base64decode(data.azurerm_kubernetes_cluster.credentials.kube_config[0].client_key, )
+  cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.credentials.kube_config[0].cluster_ca_certificate, )
 }
 
 # provider "helm" {

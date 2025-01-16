@@ -28,8 +28,8 @@ variable "ARM_CLIENT_SECRET" {
   sensitive = true
 }
 
-# variable "kube_config" {
-#   type        = string
-#   description = "The kubernetes config"
-#   default = "~/.kube/config"
-# }
+variable "kube_config" {
+  type        = string
+  description = "The kubernetes config"
+  default = "~/.kube/config"
+}

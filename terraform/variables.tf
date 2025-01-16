@@ -31,5 +31,5 @@ variable "ARM_CLIENT_SECRET" {
 variable "kube_config" {
   type        = string
   description = "The kubernetes config"
-  default = ""
+  default = "~/.kube/config"
 }

@@ -33,15 +33,11 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
 }
 
 resource "local_file" "kubeconfig" {
-  content  = kubeconfig_raw
-  filename = "kubeconfig"
+  content  = "${data.terraform_remote_state.kubeconfig.outputs.kube_config_raw}"
+  filename = "~/.kube/config"
 }
 
-output "kubeconfig_file" {
-  value = "${path.cwd}/kubeconfig"
-}
-
-data "terraform_remote_state" "kubeconfig_file" {
+data "terraform_remote_state" "kubeconfig" {
   backend = "remote"
 
   config = {

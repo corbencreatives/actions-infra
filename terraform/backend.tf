@@ -41,7 +41,7 @@ data "terraform_remote_state" "kubeconfig" {
   backend = "remote"
 
   config = {
-    organization = "hashicorp"
+    organization = "corbencreatives"
     workspaces = {
       name = "actions-infra"
     }

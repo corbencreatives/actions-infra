@@ -23,7 +23,7 @@ terraform {
 provider "github" {}
 
 provider "kubernetes" {
-  config_path = "${data.terraform_remote_state.kubeconfig_file.outputs.kubeconfig_file}"
+  config_path = "~/.kube/config"
 #   config_path = var.kube_config
 #   config_context = "cicdcluster"
 }

@@ -23,9 +23,8 @@ terraform {
 provider "github" {}
 
 provider "kubernetes" {
-#   config_path = "~/.kube/config"
-#   config_path = var.kube_config
-#   config_context = "cicdcluster"
+  config_path = "~/.kube/config"
+  config_context = "cicdcluster"
 }
 
 # provider "helm" {

@@ -32,6 +32,22 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
   }
 }
 
+resource "local_file" "kubeconfig" {
+  filename = "kubeconfig"
+}
+
+output "kubeconfig_file" {
+  value = "${path.cwd}/kubeconfig"
+}
+
+data "terraform_remote_state" "kubeconfig_file" {
+  backend = "local"
+
+  config = {
+    path = "${path.module}/../dirA/terraform.tfstate"
+  }
+}
+
 resource "kubernetes_namespace" "cicd-namespace" {
   metadata {
     name = "cicd"

@@ -33,7 +33,6 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
 }
 
 resource "local_file" "kubeconfig" {
-  sensitive = true
   content  = "${data.tfe_outputs.kube_outputs.values.kubeconfig}"
   filename = "~/.kube/config"
 }

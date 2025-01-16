@@ -32,20 +32,18 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
   }
 }
 
-# resource "local_file" "kubeconfig" {
-#   content  = "${data.terraform_remote_state.kubeconfig.outputs.kubeconfig}"
-#   filename = "~/.kube/config"
-# }
-
-data "terraform_remote_state" "foo" {
-  backend = "kubernetes"
-  config = {
-    secret_suffix    = "state"
-    load_config_file = true
-  }
+resource "local_file" "kubeconfig" {
+  sensitive = true
+  content  = "${data.tfe_outputs.kube_outputs.values.kubeconfig}"
+  filename = "~/.kube/config"
 }
 
-# data "terraform_remote_state" "kubeconfig" {
+data "tfe_outputs" "kube_outputs" {
+  organization = "corbencreatives"
+  workspace = "actions-infra"
+}
+
+# data "terraform_remote_state" "kubernetes" {
 #   backend = "remote"
 #
 #   config = {

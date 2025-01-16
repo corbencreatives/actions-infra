@@ -33,7 +33,7 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
 }
 
 resource "local_file" "kubeconfig" {
-  content  = "${data.terraform_remote_state.kubeconfig.outputs.kube_config_raw}"
+  content  = "${data.terraform_remote_state.kubeconfig.outputs.kubeconfig}"
   filename = "~/.kube/config"
 }
 

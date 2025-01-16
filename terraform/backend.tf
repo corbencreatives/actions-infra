@@ -32,26 +32,29 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
   }
 }
 
-resource "local_file" "kubeconfig" {
-  content  = "${data.terraform_remote_state.kubeconfig.outputs.kubeconfig}"
-  filename = "~/.kube/config"
+# resource "local_file" "kubeconfig" {
+#   content  = "${data.terraform_remote_state.kubeconfig.outputs.kubeconfig}"
+#   filename = "~/.kube/config"
+# }
+
+data "terraform_remote_state" "foo" {
+  backend = "kubernetes"
+  config = {
+    secret_suffix    = "state"
+    load_config_file = true
+  }
 }
 
-data "terraform_remote_state" "kubeconfig" {
-  backend = "remote"
-
-  config = {
-    organization = "corbencreatives"
-    workspaces = {
-      name = "actions-infra"
-    }
-  }
-#   backend = "local"
+# data "terraform_remote_state" "kubeconfig" {
+#   backend = "remote"
 #
 #   config = {
-#     path = "${path.module}/../dirA/terraform.tfstate"
+#     organization = "corbencreatives"
+#     workspaces = {
+#       name = "actions-infra"
+#     }
 #   }
-}
+# }
 
 resource "kubernetes_namespace" "cicd-namespace" {
   metadata {

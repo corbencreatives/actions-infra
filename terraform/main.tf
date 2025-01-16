@@ -10,6 +10,12 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.14.0"
     }
+
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = "2.35.1"
+    }
+
   }
 }
 
@@ -18,10 +24,6 @@ provider "github" {}
 
 provider "kubernetes" {
   config_path = var.kube_config
-
-  experiments {
-    manifest_resource = true
-  }
 }
 
 # provider "helm" {

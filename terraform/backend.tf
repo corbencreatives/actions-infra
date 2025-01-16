@@ -33,14 +33,15 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
 }
 
 resource "local_file" "kubeconfig" {
-  content  = "${data.tfe_outputs.kube_outputs.values.kubeconfig}"
-  filename = "~/.kube/config"
+  depends_on   = [azurerm_kubernetes_cluster.cl-cicd]
+  filename     = "~/.kube/config"
+  content      = azurerm_kubernetes_cluster.cl-cicd.kube_config_raw
 }
 
-data "tfe_outputs" "kube_outputs" {
-  organization = "corbencreatives"
-  workspace = "actions-infra"
-}
+# data "tfe_outputs" "kube_outputs" {
+#   organization = "corbencreatives"
+#   workspace = "actions-infra"
+# }
 
 # data "terraform_remote_state" "kubernetes" {
 #   backend = "remote"

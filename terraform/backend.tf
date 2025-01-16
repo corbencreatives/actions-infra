@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
 
 resource "local_file" "kubeconfig" {
   depends_on   = [azurerm_kubernetes_cluster.cl-cicd]
-  filename     = "~/.kube/config"
+  filename     = var.kube_config
   content      = azurerm_kubernetes_cluster.cl-cicd.kube_config_raw
 }
 

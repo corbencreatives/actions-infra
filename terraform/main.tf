@@ -33,6 +33,7 @@ data "azurerm_kubernetes_cluster" "credentials" {
 }
 
 provider "kubernetes" {
+  config_path            = "~/.kube/config"
   host                   = data.azurerm_kubernetes_cluster.credentials.kube_config[0].host
   username               = data.azurerm_kubernetes_cluster.credentials.kube_config[0].username
   password               = data.azurerm_kubernetes_cluster.credentials.kube_config[0].password

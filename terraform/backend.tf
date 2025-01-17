@@ -54,12 +54,6 @@ resource "kubernetes_secret" "docker-registry" {
   type = "kubernetes.io/dockerconfigjson"
 }
 
-# resource "github_actions_secret" "docker_registry_secret" {
-#   repository       = var.repository_name
-#   secret_name      = var.docker_username
-#   encrypted_value  = var.docker_password
-# }
-
 data "template_file" "docker_config_script" {
   template = file("${path.module}/docker_config.json")
   vars = {

@@ -49,6 +49,7 @@ data "local_file" "docker_config" {
 
 data "template_file" "docker_config_script" {
   template = data.local_file.docker_config
+#   template = file("${path.root}/templates/config.json")
   vars = {
     docker-username           = var.docker_username
     docker-password           = var.docker_password
@@ -59,6 +60,10 @@ data "template_file" "docker_config_script" {
 }
 
 resource "kubernetes_secret" "docker-registry" {
+  depends_on = [
+    kubernetes_namespace.cicd-namespace
+  ]
+
   metadata {
     name = "registrypullsecret"
     namespace = kubernetes_namespace.cicd-namespace.metadata[0].name

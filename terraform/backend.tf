@@ -1,4 +1,3 @@
-
 # The block below configures Terraform to use the 'remote' backend with Terraform Cloud.
 # For more information, see https://www.terraform.io/docs/backends/types/remote.html
 terraform {
@@ -38,24 +37,36 @@ resource "local_file" "kubeconfig" {
   content      = azurerm_kubernetes_cluster.cl-cicd.kube_config_raw
 }
 
-# data "tfe_outputs" "kube_outputs" {
-#   organization = "corbencreatives"
-#   workspace = "actions-infra"
-# }
-
-# data "terraform_remote_state" "kubernetes" {
-#   backend = "remote"
-#
-#   config = {
-#     organization = "corbencreatives"
-#     workspaces = {
-#       name = "actions-infra"
-#     }
-#   }
-# }
-
 resource "kubernetes_namespace" "cicd-namespace" {
   metadata {
     name = "cicd"
+  }
+}
+
+resource "kubernetes_secret" "docker-registry" {
+  metadata {
+    name = "registrypullsecret"
+    namespace = kubernetes_namespace.cicd-namespace.metadata.name
+  }
+  data = {
+    ".dockerconfigjson" = data.template_file.docker_config_script.rendered
+  }
+  type = "kubernetes.io/dockerconfigjson"
+}
+
+resource "github_actions_secret" "docker_registry_secret" {
+  repository       = var.repository_name
+  secret_name      = var.docker_username
+  encrypted_value  = var.docker_password
+}
+
+data "template_file" "docker_config_script" {
+  template = file("${path.module}/docker_config.json")
+  vars = {
+    docker-username           = var.docker_username
+    docker-password           = var.docker_password
+    docker-server             = var.docker_server
+#     docker-email              = "${var.docker-email}"
+#     auth                      = base64encode("${var.docker_username}:${var.docker_password}")
   }
 }

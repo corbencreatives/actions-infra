@@ -30,6 +30,29 @@ variable "ARM_CLIENT_SECRET" {
 
 variable "kube_config" {
   type        = string
-  description = "The kubernetes config"
+  description = "Kubernetes config"
   default = "./kube_config"
+}
+
+variable "repository_name" {
+  type        = string
+  description = "GitHub repository name"
+  default = "actions-infra"
+}
+
+variable "docker_username" {
+  type        = string
+  description = "Docker registry username"
+  default = "corbencreatives"
+}
+
+variable "docker_server" {
+  type        = string
+  description = "Docker registry server"
+  default = "https://ghcr.io"
+}
+
+variable "docker_password" {
+  type        = string
+  description = "Docker registry password"
 }

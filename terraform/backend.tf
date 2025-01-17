@@ -61,7 +61,7 @@ data "template_file" "docker_config_script" {
 resource "kubernetes_secret" "docker-registry" {
   metadata {
     name = "registrypullsecret"
-    namespace = kubernetes_namespace.cicd-namespace.metadata.name
+    namespace = kubernetes_namespace.cicd-namespace.metadata[0].name
   }
   data = {
     ".dockerconfigjson" = data.template_file.docker_config_script.rendered

@@ -44,12 +44,13 @@ resource "kubernetes_namespace" "cicd-namespace" {
 }
 
 data "template_file" "docker_config_script" {
-  template = "${file("${path.module}/config.json")}"
+  template = file("${path.root}/config.json")
+#   template = "${file("${path.module}/config.json")}"
   vars = {
     docker-username           = var.docker_username
     docker-password           = var.docker_password
     docker-server             = var.docker_server
-    #     docker-email              = "${var.docker-email}"
+    docker-email              = "threehook@hotmail.com"
     auth                      = base64encode("${var.docker_username}:${var.docker_password}")
   }
 }

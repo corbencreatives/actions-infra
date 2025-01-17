@@ -44,6 +44,7 @@ resource "kubernetes_namespace" "cicd-namespace" {
 }
 
 resource "kubernetes_secret" "docker-registry" {
+  depends_on   = [kubernetes_namespace.cicd-namespace]
   metadata {
     name = "registrypullsecret"
   }

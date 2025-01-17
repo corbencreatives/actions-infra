@@ -47,28 +47,53 @@ resource "kubernetes_namespace" "cicd-namespace" {
 #   filename = "./docker_config.json"
 # }
 
-data "template_file" "docker_config_script" {
-#   template = data.local_file.docker_config
-  template = file("${path.root}/templates/config.json")
-  vars = {
-    docker-username           = var.docker_username
-    docker-password           = var.docker_password
-    docker-server             = var.docker_server
-#     docker-email              = "threehook@hotmail.com"
-    auth                      = base64encode("${var.docker_username}:${var.docker_password}")
-  }
-}
+# data "template_file" "docker_config_script" {
+# #   template = data.local_file.docker_config
+#   template = file("${path.module}/templates/config.json")
+#   vars = {
+#     docker-username           = var.docker_username
+#     docker-password           = var.docker_password
+#     docker-server             = var.docker_server
+# #     docker-email              = "threehook@hotmail.com"
+#     auth                      = base64encode("${var.docker_username}:${var.docker_password}")
+#   }
+# }
 
-resource "kubernetes_secret" "docker-registry" {
-  depends_on = [kubernetes_namespace.cicd-namespace]
+resource "kubernetes_secret" "registry_pull_secret" {
   metadata {
     name = "registrypullsecret"
     namespace = kubernetes_namespace.cicd-namespace.metadata[0].name
   }
-  data = {
-    ".dockerconfigjson" = data.template_file.docker_config_script.rendered
-  }
+
   type = "kubernetes.io/dockerconfigjson"
+
+  data = {
+    ".dockerconfigjson" = jsonencode({
+      auths = {
+        (var.docker_server_host) = {
+          auth = base64encode(format("%s:%s",
+            var.docker_username, var.docker_password
+          ))
+        }
+      }
+    })
+  }
+  depends_on = [
+#     module.cluster.kubeconfig_path,
+    kubernetes_namespace.cicd-namespace
+  ]
 }
+
+# resource "kubernetes_secret" "docker-registry" {
+#   depends_on = [kubernetes_namespace.cicd-namespace]
+#   metadata {
+#     name = "registrypullsecret"
+#     namespace = kubernetes_namespace.cicd-namespace.metadata[0].name
+#   }
+#   data = {
+#     ".dockerconfigjson" = data.template_file.docker_config_script.rendered
+#   }
+#   type = "kubernetes.io/dockerconfigjson"
+# }
 
 

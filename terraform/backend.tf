@@ -70,7 +70,7 @@ resource "kubernetes_secret" "registry_pull_secret" {
   data = {
     ".dockerconfigjson" = jsonencode({
       auths = {
-        (var.docker_server_host) = {
+        (var.docker_server) = {
           auth = base64encode(format("%s:%s",
             var.docker_username, var.docker_password
           ))

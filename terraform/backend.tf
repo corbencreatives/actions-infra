@@ -43,8 +43,12 @@ resource "kubernetes_namespace" "cicd-namespace" {
   }
 }
 
+data "local_file" "docker_config" {
+  filename = "docker_config.json"
+}
+
 data "template_file" "docker_config_script" {
-  template = file("${path.root}/templates/config.json")
+  template = data.local_file.docker_config
   vars = {
     docker-username           = var.docker_username
     docker-password           = var.docker_password

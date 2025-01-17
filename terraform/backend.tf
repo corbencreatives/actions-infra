@@ -52,7 +52,9 @@ resource "kubernetes_secret" "docker-registry" {
     ".dockerconfigjson" = data.template_file.docker_config_script.rendered
   }
   type = "kubernetes.io/dockerconfigjson"
-  namespace = kubernetes_namespace.cicd-namespace.metadata.name
+  namespace = "cicd"
+#   kubernetes_namespace.cicd-namespace.metadata.name
+
 }
 
 resource "github_actions_secret" "docker_registry_secret" {

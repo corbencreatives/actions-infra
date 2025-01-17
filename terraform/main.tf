@@ -28,7 +28,6 @@ data "azurerm_kubernetes_cluster" "credentials" {
 }
 
 provider "kubernetes" {
-#   config_path            = var.kube_config
   host                   = data.azurerm_kubernetes_cluster.credentials.kube_config[0].host
   username               = data.azurerm_kubernetes_cluster.credentials.kube_config[0].username
   password               = data.azurerm_kubernetes_cluster.credentials.kube_config[0].password
@@ -36,12 +35,6 @@ provider "kubernetes" {
   client_key             = base64decode(data.azurerm_kubernetes_cluster.credentials.kube_config[0].client_key, )
   cluster_ca_certificate = base64decode(data.azurerm_kubernetes_cluster.credentials.kube_config[0].cluster_ca_certificate, )
 }
-
-# provider "helm" {
-#   kubernetes {
-#     config_path = var.kube_config
-#   }
-# }
 
 provider "azurerm" {
   features {}

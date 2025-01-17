@@ -44,7 +44,7 @@ resource "kubernetes_namespace" "cicd-namespace" {
 }
 
 data "local_file" "docker_config" {
-  filename = "docker_config.json"
+  filename = "./docker_config.json"
 }
 
 data "template_file" "docker_config_script" {

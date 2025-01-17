@@ -47,12 +47,11 @@ resource "kubernetes_secret" "docker-registry" {
   metadata {
     name = "registrypullsecret"
   }
-
   data = {
     ".dockerconfigjson" = data.template_file.docker_config_script.rendered
   }
-
   type = "kubernetes.io/dockerconfigjson"
+  name = kubernetes_namespace.cicd-namespace.metadata.name
 }
 
 resource "github_actions_secret" "docker_registry_secret" {

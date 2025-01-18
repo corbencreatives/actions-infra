@@ -66,10 +66,10 @@ jobs:
 #      - name: Create pull secret
 #        run: |
 #          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io --kubeconfig src/config --context cicdcluster -n cicd
-      - name: Create namespace
-        run: |
-          kubectl create namespace cicd --kubeconfig src/config
-
-      - name: Create pull secret
-        run: |
-          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io --kubeconfig src/config --context cicdcluster -n cicd          
+#      - name: Create namespace
+#        run: |
+#          kubectl create namespace cicd --kubeconfig src/config
+#
+#      - name: Create pull secret
+#        run: |
+#          kubectl create secret docker-registry registrypullsecret --docker-username=corbencreatives --docker-password=${{ secrets.DOCKER_PASSWORD }} --docker-server=https://ghcr.io --kubeconfig src/config --context cicdcluster -n cicd

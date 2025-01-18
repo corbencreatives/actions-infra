@@ -31,19 +31,13 @@ resource "azurerm_kubernetes_cluster" "cl-cicd" {
   }
 }
 
-resource "local_file" "kubeconfig" {
-  depends_on   = [azurerm_kubernetes_cluster.cl-cicd]
-  filename     = var.kube_config
-  content      = azurerm_kubernetes_cluster.cl-cicd.kube_config_raw
-}
-
 resource "kubernetes_namespace" "cicd-namespace" {
   metadata {
     name = "cicd"
   }
 }
 
-resource "kubernetes_secret" "registry_pull_secret" {
+resource "kubernetes_secret" "registry-pull-secret" {
   depends_on = [kubernetes_namespace.cicd-namespace]
   metadata {
     name = "registrypullsecret"
@@ -63,3 +57,17 @@ resource "kubernetes_secret" "registry_pull_secret" {
   type = "kubernetes.io/dockerconfigjson"
 }
 
+resource "azuread_application_registration" "ar-actions-test" {
+  display_name = "ar-actions-test"
+}
+
+resource "azuread_application_federated_identity_credential" "fic-actions-test-tst" {
+  application_id = azuread_application_registration.ar-actions-test.id
+  display_name   = "GitHubOIDCActionsTest"
+  description    = "Deployments for repo 'actions-test'"
+  audiences      = ["api://AzureADTokenExchange"]
+  issuer         = "https://token.actions.githubusercontent.com"
+#   subject        = "repo:corbencreatives/actions-test:ref:refs/heads/develop"
+  subject        = "repo:corbencreatives/actions-test:environment:tst"
+
+}

@@ -56,18 +56,3 @@ resource "kubernetes_secret" "registry-pull-secret" {
   }
   type = "kubernetes.io/dockerconfigjson"
 }
-
-resource "azuread_application_registration" "ar-actions-test" {
-  display_name = "ar-actions-test"
-}
-
-resource "azuread_application_federated_identity_credential" "fic-actions-test-tst" {
-  application_id = azuread_application_registration.ar-actions-test.id
-  display_name   = "GitHubOIDCActionsTest"
-  description    = "Deployments for repo 'actions-test'"
-  audiences      = ["api://AzureADTokenExchange"]
-  issuer         = "https://token.actions.githubusercontent.com"
-#   subject        = "repo:corbencreatives/actions-test:ref:refs/heads/develop"
-  subject        = "repo:corbencreatives/actions-test:environment:tst"
-
-}

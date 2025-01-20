@@ -9,6 +9,7 @@ on:
       - '.github/workflows/**'
   workflow_dispatch:
 
+
 jobs:
   call-terraform-security:
     #    if: github.event_name == 'pull_request' # only run job if workflow initiated by a pull request event

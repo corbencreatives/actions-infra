@@ -14,7 +14,7 @@ jobs:
     uses: corbencreatives/action-workflows/.github/workflows/terraform-plan-apply.yml@v0.5.15
     with:
       environment: "test"
-      tf-workspace: "action-workflows"
+      tf-workspace: "actions-infra"
       config-directory: "./terraform"
     secrets:
       token: ${{secrets.TF_API_TOKEN}}

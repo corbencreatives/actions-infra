@@ -8,9 +8,6 @@ on:
       - 'terraform/**'
       - '.github/workflows/**'
 
-env:
-  DOCKER_PASSWORD: ${{ secrets.REGISTRY_TOKEN_QUOTED }}
-
 jobs:
 
   call-terraform-plan-apply:
@@ -26,7 +23,7 @@ jobs:
       TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET_QUOTED }}
       TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID_QUOTED }}
       TF_VAR_ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID_QUOTED }}
-      TF_VAR_docker_password: $env:DOCKER_PASSWORD
+      TF_VAR_docker_password: ${{ secrets.REGISTRY_TOKEN }}
     permissions:
       contents: read
       pull-requests: write

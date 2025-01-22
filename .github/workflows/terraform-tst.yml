@@ -18,7 +18,7 @@ jobs:
       config-directory: "./terraform"
     secrets:
       token: ${{secrets.TF_API_TOKEN}}
-      TF_VAR_ARM_CLIENT_ID: ${{secrets.secrets.ARM_CLIENT_ID_QUOTED}}
+      TF_VAR_ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID_QUOTED}}
       TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET_QUOTED }}
       TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID_QUOTED }}
       TF_VAR_ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID_QUOTED }}

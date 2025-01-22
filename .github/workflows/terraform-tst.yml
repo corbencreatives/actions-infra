@@ -14,7 +14,7 @@ jobs:
     uses: corbencreatives/action-workflows/.github/workflows/terraform-plan-apply.yml@v0.5.7
     with:
      environment: "test"
-     tf-workspace: "corbencreatives"
+     tf-workspace: "action-workflows"
      config-directory: "./terraform"
     permissions:
       contents: read

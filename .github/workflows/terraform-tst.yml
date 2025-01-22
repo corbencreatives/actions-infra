@@ -7,7 +7,6 @@ on:
     paths:
       - 'terraform/**'
       - '.github/workflows/**'
-  workflow_dispatch:
 
 jobs:
   call-terraform-plan-apply:

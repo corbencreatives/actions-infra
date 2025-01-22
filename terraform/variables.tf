@@ -56,5 +56,4 @@ variable "docker_password" {
   type        = string
   description = "Docker registry password"
   sensitive = true
-  default = ""
 }

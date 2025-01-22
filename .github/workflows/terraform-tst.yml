@@ -8,6 +8,9 @@ on:
       - 'terraform/**'
       - '.github/workflows/**'
 
+env:
+  TF_VAR_docker_password: ${{ secrets.REGISTRY_TOKEN_QUOTED }}
+
 jobs:
   call-terraform-plan-apply:
     #    if: github.event_name == 'pull_request' # only run job if workflow initiated by a pull request event
@@ -22,7 +25,7 @@ jobs:
       TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET_QUOTED }}
       TF_VAR_ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID_QUOTED }}
       TF_VAR_ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID_QUOTED }}
-      TF_VAR_docker_password: ${{ secrets.REGISTRY_TOKEN_QUOTED }}
+      TF_VAR_docker_password: ${{ env.TF_VAR_docker_password }}
     permissions:
       contents: read
       pull-requests: write

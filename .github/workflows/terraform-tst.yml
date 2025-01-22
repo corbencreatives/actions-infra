@@ -13,7 +13,7 @@ jobs:
     #    if: github.event_name == 'pull_request' # only run job if workflow initiated by a pull request event
     uses: corbencreatives/action-workflows/.github/workflows/terraform-plan-apply.yml@v0.5.9
     with:
-     token: ${{ secrets.TF_API_TOKEN }}
+     token: "${{secrets.TF_API_TOKEN}}"
      environment: "test"
      tf-workspace: "action-workflows"
      config-directory: "./terraform"

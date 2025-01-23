@@ -28,6 +28,12 @@ variable "ARM_CLIENT_SECRET" {
   sensitive = true
 }
 
+variable "DOCKER_PASSWORD" {
+  type        = string
+  description = "Docker registry password"
+  sensitive = true
+}
+
 variable "kube_config" {
   type        = string
   description = "Kubernetes config"
@@ -40,7 +46,7 @@ variable "repository_name" {
   default = "actions-infra"
 }
 
-variable "docker_username" {
+variable "DOCKER_USERNAME" {
   type        = string
   description = "Docker registry username"
   default = "corbencreatives"
@@ -50,10 +56,4 @@ variable "docker_server" {
   type        = string
   description = "Docker registry server"
   default = "https://ghcr.io"
-}
-
-variable "docker_password" {
-  type        = string
-  description = "Docker registry password"
-  sensitive = true
 }

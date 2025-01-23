@@ -33,7 +33,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: corbencreatives/action-workflows/.github/workflows/terraform-plan-apply.yml@v0.5.41
+    uses: corbencreatives/action-workflows/.github/workflows/terraform-plan-apply.yml@v0.5.42
     with:
       environment: "test"
       tf-workspace: "actions-infra"

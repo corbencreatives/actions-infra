@@ -9,20 +9,47 @@ on:
       - '.github/workflows/**'
 
 jobs:
+#  call-terraform-plan-apply:
+#    #    if: github.event_name == 'pull_request' # only run job if workflow initiated by a pull request event
+#    uses: corbencreatives/action-workflows/.github/workflows/terraform-plan-apply.yml@v0.5.31
+#    with:
+#      environment: "test"
+#      tf-workspace: "actions-infra"
+#      config-directory: "./terraform"
+#    secrets:
+#      token: ${{secrets.TF_API_TOKEN}}
+#      ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID_QUOTED}}
+#      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET_QUOTED }}
+#      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID_QUOTED }}
+#      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID_QUOTED }}
+#      DOCKER_PASSWORD: ${{ secrets.REGISTRY_TOKEN_QUOTED }}
+#    permissions:
+#      contents: read
+#      pull-requests: write
+
   call-terraform-plan-apply:
-    #    if: github.event_name == 'pull_request' # only run job if workflow initiated by a pull request event
-    uses: corbencreatives/action-workflows/.github/workflows/terraform-plan-apply.yml@v0.5.31
-    with:
-      environment: "test"
-      tf-workspace: "actions-infra"
-      config-directory: "./terraform"
-    secrets:
-      token: ${{secrets.TF_API_TOKEN}}
-      ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID_QUOTED}}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET_QUOTED }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID_QUOTED }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID_QUOTED }}
-      DOCKER_PASSWORD: ${{ secrets.REGISTRY_TOKEN_QUOTED }}
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      # Log in to Azure using OIDC
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.ARM_CLIENT_ID }}
+          tenant-id: ${{ secrets.ARM_TENANT_ID }}
+          subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      - name: Terraform Plan and Apply
+        #    if: github.event_name == 'pull_request' # only run job if workflow initiated by a pull request event
+        uses: corbencreatives/action-workflows/.github/workflows/terraform-plan-apply.yml@main
+        with:
+          environment: "test"
+          tf-workspace: "actions-infra"
+          config-directory: "./terraform"
+        secrets:
+          token: ${{secrets.TF_API_TOKEN}}
+          DOCKER_PASSWORD: ${{ secrets.REGISTRY_TOKEN_QUOTED }}
+

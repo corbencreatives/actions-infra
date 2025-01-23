@@ -38,12 +38,13 @@ jobs:
       environment: "test"
       tf-workspace: "actions-infra"
       config-directory: "./terraform"
-    secrets:
-      token: ${{secrets.TF_API_TOKEN}}
-#      ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID_QUOTED}}
-#      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET_QUOTED }}
-#      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID_QUOTED }}
-#      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID_QUOTED }}
-      DOCKER_PASSWORD: ${{ secrets.REGISTRY_TOKEN_QUOTED }}
+    secrets: inherit
+#    secrets:
+#      token: ${{secrets.TF_API_TOKEN}}
+##      ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID_QUOTED}}
+##      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET_QUOTED }}
+##      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID_QUOTED }}
+##      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID_QUOTED }}
+#      DOCKER_PASSWORD: ${{ secrets.REGISTRY_TOKEN_QUOTED }}
 
 

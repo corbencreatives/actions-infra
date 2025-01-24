@@ -20,7 +20,3 @@ jobs:
       environment: "test"
       tf-workspace: "actions-infra"
       config-directory: "./terraform"
-    secrets: inherit
-
-
-

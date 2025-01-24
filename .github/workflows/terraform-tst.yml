@@ -26,6 +26,10 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.REGISTRY_TOKEN }}
 
+      - name: Get kube config for AKS
+        run: |
+          az aks get-credentials --resource-group rg-cicd-apps --name cicdcluster          
+
   call-terraform-plan-apply:
     name: "Call the reusable terraform plan and apply action"
     needs: checkout-and-login
